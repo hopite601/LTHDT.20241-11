@@ -1,4 +1,4 @@
-package testTree;
+package test;
 
 import tree.BinaryTree;
 import tree.Node;
