@@ -53,43 +53,49 @@ public class BalancedTree extends Tree {
 
     @Override
     public List<Node> traverse(String algorithm) {
-        List<Node> result = new ArrayList<>();
-        
-        if ("DFS".equalsIgnoreCase(algorithm)) {
-            dfsTraversal(root, result);
-        } else if ("BFS".equalsIgnoreCase(algorithm)) {
-            bfsTraversal(root, result);
-        } else {
-            System.out.println("Unsupported traversal algorithm: " + algorithm);
+        if (algorithm.equalsIgnoreCase("DFS")) {
+            return traverseDFS();
+        } else if (algorithm.equalsIgnoreCase("BFS")) {
+            return traverseBFS();
         }
-        
+        return new LinkedList<>(); // Return an empty list if no matching algorithm
+    }
+
+    // DFS traversal
+    public List<Node> traverseDFS() {
+        List<Node> result = new LinkedList<>();
+        if (root != null) {
+            traverseDFSRecursive(root, result);
+        }
         return result;
     }
 
-    private void dfsTraversal(Node node, List<Node> result) {
-        if (node != null) {
-            result.add(node); // Add the current node to the result
-            for (Node child : node.getChildren()) {
-                dfsTraversal(child, result); // Recursive call for each child
-            }
+    private void traverseDFSRecursive(Node current, List<Node> result) {
+        result.add(current); // Add the current node to the result
+
+        for (Node child : current.getChildren()) {
+            traverseDFSRecursive(child, result); // Recur for all children
         }
     }
 
-    private void bfsTraversal(Node node, List<Node> result) {
-        if (node == null) return;
-        
-        Queue<Node> queue = new LinkedList<>();
-        queue.offer(node); // Start with the root
-        
-        while (!queue.isEmpty()) {
-            Node current = queue.poll();
-            result.add(current); // Add the node to the result list
-            
-            // Add all children of the current node to the queue
-            for (Node child : current.getChildren()) {
-                queue.offer(child);
+    // BFS traversal
+    public List<Node> traverseBFS() {
+        List<Node> result = new LinkedList<>();
+        if (root != null) {
+            Queue<Node> queue = new LinkedList<>();
+            queue.add(root);
+
+            while (!queue.isEmpty()) {
+                Node current = queue.poll();
+                result.add(current); // Add the current node to the result
+
+                // Add all children to the queue
+                for (Node child : current.getChildren()) {
+                    queue.add(child);
+                }
             }
         }
+        return result;
     }
 
     private boolean isBalanced(Node node) {
