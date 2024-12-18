@@ -53,7 +53,43 @@ public class BalancedTree extends Tree {
 
     @Override
     public List<Node> traverse(String algorithm) {
-        return new GenericTree().traverse(algorithm); // Reuse traversal logic
+        List<Node> result = new ArrayList<>();
+        
+        if ("DFS".equalsIgnoreCase(algorithm)) {
+            dfsTraversal(root, result);
+        } else if ("BFS".equalsIgnoreCase(algorithm)) {
+            bfsTraversal(root, result);
+        } else {
+            System.out.println("Unsupported traversal algorithm: " + algorithm);
+        }
+        
+        return result;
+    }
+
+    private void dfsTraversal(Node node, List<Node> result) {
+        if (node != null) {
+            result.add(node); // Add the current node to the result
+            for (Node child : node.getChildren()) {
+                dfsTraversal(child, result); // Recursive call for each child
+            }
+        }
+    }
+
+    private void bfsTraversal(Node node, List<Node> result) {
+        if (node == null) return;
+        
+        Queue<Node> queue = new LinkedList<>();
+        queue.offer(node); // Start with the root
+        
+        while (!queue.isEmpty()) {
+            Node current = queue.poll();
+            result.add(current); // Add the node to the result list
+            
+            // Add all children of the current node to the queue
+            for (Node child : current.getChildren()) {
+                queue.offer(child);
+            }
+        }
     }
 
     private boolean isBalanced(Node node) {
