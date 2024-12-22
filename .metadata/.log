@@ -1,129 +1,66 @@
-!SESSION 2024-12-17 21:48:55.369 -----------------------------------------------
+!SESSION 2024-12-19 19:02:13.781 -----------------------------------------------
 eclipse.buildId=4.33.0.20240905-0613
-java.version=21.0.4
+java.version=21.0.5
 java.vendor=Eclipse Adoptium
 BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_US
 Framework arguments:  -product org.eclipse.epp.package.java.product
-Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.epp.package.java.product -data D:\Bach Khoa\Nam 3 Ki 1\lap trinh huong doi tuong\Project
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.epp.package.java.product
 
-!ENTRY ch.qos.logback.classic 1 0 2024-12-17 21:48:57.093
+!ENTRY ch.qos.logback.classic 1 0 2024-12-19 19:02:15.739
 !MESSAGE Activated before the state location was initialized. Retry after the state location is initialized.
 
-!ENTRY ch.qos.logback.classic 1 0 2024-12-17 21:48:57.966
-!MESSAGE Logback config file: D:\Bach Khoa\Nam 3 Ki 1\lap trinh huong doi tuong\Project\.metadata\.plugins\org.eclipse.m2e.logback\logback.2.6.1.20240411-1122.xml
+!ENTRY ch.qos.logback.classic 1 0 2024-12-19 19:02:16.975
+!MESSAGE Logback config file: D:\Bach Khoa\Nam 3 Ki 1\lap trinh huong doi tuong\TreeVisualProject\.metadata\.plugins\org.eclipse.m2e.logback\logback.2.6.1.20240411-1122.xml
 
-!ENTRY org.eclipse.egit.ui 2 0 2024-12-17 21:49:03.221
+!ENTRY org.eclipse.egit.ui 2 0 2024-12-19 19:02:22.309
 !MESSAGE Warning: The environment variable HOME is not set. The following directory will be used to store the Git
 user global configuration and to define the default location to store repositories: 'C:\Users\saxak'. If this is
 not correct please set the HOME environment variable and restart Eclipse. Otherwise Git for Windows and
 EGit might behave differently since they see different configuration options.
 This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
-!SESSION 2024-12-17 22:01:53.631 -----------------------------------------------
-eclipse.buildId=4.33.0.20240905-0613
-java.version=21.0.4
+!SESSION 2024-12-22 20:19:20.718 -----------------------------------------------
+eclipse.buildId=4.34.0.20241128-0756
+java.version=21.0.5
 java.vendor=Eclipse Adoptium
 BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_US
 Framework arguments:  -product org.eclipse.epp.package.java.product
 Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.epp.package.java.product -data D:\Bach Khoa\Nam 3 Ki 1\lap trinh huong doi tuong\TreeVisualProject
 
-!ENTRY ch.qos.logback.classic 1 0 2024-12-17 22:01:55.436
+!ENTRY ch.qos.logback.classic 1 0 2024-12-22 20:19:23.223
 !MESSAGE Activated before the state location was initialized. Retry after the state location is initialized.
 
-!ENTRY org.eclipse.core.resources 2 10035 2024-12-17 22:01:56.037
-!MESSAGE The workspace exited with unsaved changes in the previous session; refreshing workspace to recover changes.
+!ENTRY ch.qos.logback.classic 1 0 2024-12-22 20:19:27.198
+!MESSAGE Logback config file: D:\Bach Khoa\Nam 3 Ki 1\lap trinh huong doi tuong\TreeVisualProject\.metadata\.plugins\org.eclipse.m2e.logback\logback.2.7.0.20241001-1350.xml
 
-!ENTRY ch.qos.logback.classic 1 0 2024-12-17 22:01:56.425
-!MESSAGE Logback config file: D:\Bach Khoa\Nam 3 Ki 1\lap trinh huong doi tuong\TreeVisualProject\.metadata\.plugins\org.eclipse.m2e.logback\logback.2.6.1.20240411-1122.xml
-
-!ENTRY org.eclipse.egit.ui 2 0 2024-12-17 22:02:01.119
-!MESSAGE Warning: The environment variable HOME is not set. The following directory will be used to store the Git
-user global configuration and to define the default location to store repositories: 'C:\Users\saxak'. If this is
-not correct please set the HOME environment variable and restart Eclipse. Otherwise Git for Windows and
-EGit might behave differently since they see different configuration options.
-This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
-
-!ENTRY org.eclipse.ui.ide 4 4 2024-12-17 23:03:55.413
-!MESSAGE Problems saving workspace
-
-!ENTRY org.eclipse.ui.ide 2 1 2024-12-17 23:03:55.413
-!MESSAGE Problems occurred while trying to save the state of the workbench.
-!SUBENTRY 1 org.eclipse.core.resources 2 234 2024-12-17 23:03:55.413
-!MESSAGE The project description file (.project) for '.org.eclipse.egit.core.cmp' was missing.  This file contains important information about the project.  A new project description file has been created, but some information about the project may have been lost.
-!SESSION 2024-12-18 15:45:10.937 -----------------------------------------------
-eclipse.buildId=4.33.0.20240905-0613
-java.version=21.0.4
-java.vendor=Eclipse Adoptium
-BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_US
-Framework arguments:  -product org.eclipse.epp.package.java.product
-Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.epp.package.java.product
-
-!ENTRY ch.qos.logback.classic 1 0 2024-12-18 15:45:15.359
-!MESSAGE Activated before the state location was initialized. Retry after the state location is initialized.
-
-!ENTRY ch.qos.logback.classic 1 0 2024-12-18 15:45:17.593
-!MESSAGE Logback config file: D:\Bach Khoa\Nam 3 Ki 1\lap trinh huong doi tuong\TreeVisualProject\.metadata\.plugins\org.eclipse.m2e.logback\logback.2.6.1.20240411-1122.xml
-
-!ENTRY org.eclipse.egit.ui 2 0 2024-12-18 15:45:27.595
-!MESSAGE Warning: The environment variable HOME is not set. The following directory will be used to store the Git
-user global configuration and to define the default location to store repositories: 'C:\Users\saxak'. If this is
-not correct please set the HOME environment variable and restart Eclipse. Otherwise Git for Windows and
-EGit might behave differently since they see different configuration options.
-This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
-
-!ENTRY org.eclipse.core.resources 2 2 2024-12-18 16:04:53.844
-!MESSAGE Save operation warnings.
-!SUBENTRY 1 org.eclipse.core.resources 2 234 2024-12-18 16:04:53.844
-!MESSAGE The project description file (.project) for '.org.eclipse.egit.core.cmp' was missing.  This file contains important information about the project.  A new project description file has been created, but some information about the project may have been lost.
-
-!ENTRY org.eclipse.jdt.core 4 4 2024-12-18 16:45:46.523
-!MESSAGE Could not retrieve interfaces
+!ENTRY org.eclipse.ui 4 4 2024-12-22 20:19:27.737
+!MESSAGE Invalid workspace location to be set for Edge browser.
 !STACK 0
-org.eclipse.jdt.internal.compiler.problem.AbortCompilation: Pb(347) The type java.lang.Comparable cannot be resolved. It is indirectly referenced from required type javax.naming.Name
-	at org.eclipse.jdt.internal.compiler.problem.ProblemHandler.handle(ProblemHandler.java:159)
-	at org.eclipse.jdt.internal.compiler.problem.ProblemHandler.handle(ProblemHandler.java:226)
-	at org.eclipse.jdt.internal.compiler.problem.ProblemReporter.handle(ProblemReporter.java:2723)
-	at org.eclipse.jdt.internal.compiler.problem.ProblemReporter.isClassPathCorrect(ProblemReporter.java:5223)
-	at org.eclipse.jdt.internal.compiler.lookup.UnresolvedReferenceBinding.resolve(UnresolvedReferenceBinding.java:125)
-	at org.eclipse.jdt.internal.compiler.lookup.BinaryTypeBinding.resolveType(BinaryTypeBinding.java:251)
-	at org.eclipse.jdt.internal.compiler.lookup.ParameterizedTypeBinding.resolve(ParameterizedTypeBinding.java:1298)
-	at org.eclipse.jdt.internal.compiler.lookup.BinaryTypeBinding.resolveType(BinaryTypeBinding.java:222)
-	at org.eclipse.jdt.internal.compiler.lookup.BinaryTypeBinding.superInterfaces(BinaryTypeBinding.java:2552)
-	at org.eclipse.jdt.core.dom.TypeBinding.getInterfaces(TypeBinding.java:513)
-	at org.eclipse.jdt.internal.ui.text.correction.UnresolvedElementsBaseSubProcessor.isInherited(UnresolvedElementsBaseSubProcessor.java:1023)
-	at org.eclipse.jdt.internal.ui.text.correction.UnresolvedElementsBaseSubProcessor.addSimilarTypeProposals(UnresolvedElementsBaseSubProcessor.java:996)
-	at org.eclipse.jdt.internal.ui.text.correction.UnresolvedElementsBaseSubProcessor.collectTypeProposals(UnresolvedElementsBaseSubProcessor.java:755)
-	at org.eclipse.jdt.internal.ui.text.correction.UnresolvedElementsSubProcessor.getTypeProposals(UnresolvedElementsSubProcessor.java:144)
-	at org.eclipse.jdt.internal.ui.text.correction.QuickFixProcessor.process(QuickFixProcessor.java:455)
-	at org.eclipse.jdt.internal.ui.text.correction.QuickFixProcessor.getCorrections(QuickFixProcessor.java:378)
-	at org.eclipse.jdt.internal.ui.text.correction.JavaCorrectionProcessor$SafeCorrectionCollector.safeRun(JavaCorrectionProcessor.java:381)
-	at org.eclipse.jdt.internal.ui.text.correction.JavaCorrectionProcessor$SafeCorrectionProcessorAccess.run(JavaCorrectionProcessor.java:341)
-	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:47)
-	at org.eclipse.jdt.internal.ui.text.correction.JavaCorrectionProcessor$SafeCorrectionProcessorAccess.process(JavaCorrectionProcessor.java:336)
-	at org.eclipse.jdt.internal.ui.text.correction.JavaCorrectionProcessor.collectCorrections(JavaCorrectionProcessor.java:465)
-	at org.eclipse.jdt.internal.ui.text.java.hover.ProblemHover$ProblemInfo.getJavaAnnotationFixes(ProblemHover.java:115)
-	at org.eclipse.jdt.internal.ui.text.java.hover.ProblemHover$ProblemInfo.computeCompletionProposals(ProblemHover.java:89)
-	at org.eclipse.jdt.internal.ui.text.java.hover.ProblemHover$ProblemInfo.<init>(ProblemHover.java:74)
-	at org.eclipse.jdt.internal.ui.text.java.hover.ProblemHover.createAnnotationInfo(ProblemHover.java:178)
-	at org.eclipse.jdt.internal.ui.text.java.hover.AbstractAnnotationHover.getHoverInfo2(AbstractAnnotationHover.java:755)
-	at org.eclipse.jdt.internal.ui.text.java.hover.BestMatchHover.getHoverInfo2(BestMatchHover.java:163)
-	at org.eclipse.jdt.internal.ui.text.java.hover.BestMatchHover.getHoverInfo2(BestMatchHover.java:130)
-	at org.eclipse.jdt.internal.ui.text.java.hover.JavaEditorTextHoverProxy.getHoverInfo2(JavaEditorTextHoverProxy.java:89)
-	at org.eclipse.jface.text.TextViewerHoverManager$1.run(TextViewerHoverManager.java:155)
-!SESSION 2024-12-18 17:09:44.826 -----------------------------------------------
-eclipse.buildId=4.33.0.20240905-0613
-java.version=21.0.4
-java.vendor=Eclipse Adoptium
-BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_US
-Framework arguments:  -product org.eclipse.epp.package.java.product
-Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.epp.package.java.product
+java.net.URISyntaxException: Illegal character in path at index 13: file:/D:/Bach Khoa/Nam 3 Ki 1/lap trinh huong doi tuong/TreeVisualProject/.metadata/.plugins/org.eclipse.swt
+	at java.base/java.net.URI$Parser.fail(URI.java:2995)
+	at java.base/java.net.URI$Parser.checkChars(URI.java:3166)
+	at java.base/java.net.URI$Parser.parseHierarchical(URI.java:3248)
+	at java.base/java.net.URI$Parser.parse(URI.java:3196)
+	at java.base/java.net.URI.<init>(URI.java:645)
+	at java.base/java.net.URL.toURI(URL.java:1220)
+	at org.eclipse.ui.internal.Workbench.setEdgeDataDirectory(Workbench.java:530)
+	at org.eclipse.ui.internal.Workbench.<init>(Workbench.java:461)
+	at org.eclipse.ui.internal.Workbench.lambda$3(Workbench.java:598)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:339)
+	at org.eclipse.ui.internal.Workbench.createAndRunWorkbench(Workbench.java:570)
+	at org.eclipse.ui.PlatformUI.createAndRunWorkbench(PlatformUI.java:173)
+	at org.eclipse.ui.internal.ide.application.IDEApplication.start(IDEApplication.java:178)
+	at org.eclipse.equinox.internal.app.EclipseAppHandle.run(EclipseAppHandle.java:208)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.runApplication(EclipseAppLauncher.java:143)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.start(EclipseAppLauncher.java:109)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:439)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:271)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.eclipse.equinox.launcher.Main.invokeFramework(Main.java:668)
+	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:605)
+	at org.eclipse.equinox.launcher.Main.run(Main.java:1481)
 
-!ENTRY ch.qos.logback.classic 1 0 2024-12-18 17:09:47.053
-!MESSAGE Activated before the state location was initialized. Retry after the state location is initialized.
-
-!ENTRY ch.qos.logback.classic 1 0 2024-12-18 17:09:48.119
-!MESSAGE Logback config file: D:\Bach Khoa\Nam 3 Ki 1\lap trinh huong doi tuong\TreeVisualProject\.metadata\.plugins\org.eclipse.m2e.logback\logback.2.6.1.20240411-1122.xml
-
-!ENTRY org.eclipse.egit.ui 2 0 2024-12-18 17:09:52.410
+!ENTRY org.eclipse.egit.ui 2 0 2024-12-22 20:19:31.862
 !MESSAGE Warning: The environment variable HOME is not set. The following directory will be used to store the Git
 user global configuration and to define the default location to store repositories: 'C:\Users\saxak'. If this is
 not correct please set the HOME environment variable and restart Eclipse. Otherwise Git for Windows and

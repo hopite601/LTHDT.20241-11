@@ -1,7 +1,0 @@
-package GUI;
-
-public class MainMenu {
-	public static void main(string args[]) {
-		System.out.print("hellO");
-	}
-}
