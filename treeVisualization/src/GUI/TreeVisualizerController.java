@@ -7,7 +7,6 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
@@ -18,6 +17,8 @@ import tree.BinaryTree;
 import tree.GenericTree;
 import tree.Node;
 import tree.Tree;
+
+import java.util.List;
 
 public class TreeVisualizerController {
     @FXML
@@ -132,12 +133,74 @@ public class TreeVisualizerController {
 
     @FXML
     void btnTraversePressed(ActionEvent event) {
+        if (currentTree != null) {
+            String traversalMethod = TreeDialog.showTraversalDialog();
+            if (traversalMethod != null) {
+                List<Node> traversalResult = currentTree.traverse(traversalMethod);
 
+                // Clear the visualizer
+                treeVisualizer.getChildren().clear();
+
+                // Display the traversal result
+                double x = 50;
+                double y = 50;
+                double dx = 50;
+                for (Node node : traversalResult) {
+                    Circle circle = new Circle(x, y, 20);
+                    circle.setStyle("-fx-fill: lightblue;");
+                    Text text = new Text(x - 5, y + 5, String.valueOf(node.getValue()));
+                    treeVisualizer.getChildren().addAll(circle, text);
+                    x += dx;
+                }
+            } else {
+                updateTreeVisualizer("Traversal canceled.");
+            }
+        } else {
+            updateTreeVisualizer("No tree selected.");
+        }
     }
 
     @FXML
     void btnSearchPressed(ActionEvent event) {
+        if (currentTree != null) {
+            int value = TreeDialog.showSearchDialog();
+            if (value != -1) {
+                pseudoCode.getChildren().clear();
+                pseudoCode.getChildren().add(new Label("Searching for node with value: " + value));
+                pseudoCode.getChildren().add(new Label("1. Start at the root node."));
+                pseudoCode.getChildren().add(new Label("2. Compare the current node's value with the target value."));
+                pseudoCode.getChildren().add(new Label("3. If they are equal, the node is found."));
+                pseudoCode.getChildren().add(new Label("4. If not, move to the next child and repeat step 2."));
+                pseudoCode.getChildren().add(new Label("5. If no children left, the node is not in the tree."));
 
+                searchAndHighlight(currentTree.getRoot(), value);
+            } else {
+                updateTreeVisualizer("Search canceled.");
+            }
+        } else {
+            updateTreeVisualizer("No tree selected.");
+        }
+    }
+
+    private void searchAndHighlight(Node node, int value) {
+        if (node == null)
+            return;
+
+        // Highlight the current node
+        treeVisualizer.getChildren().clear();
+        drawTree(currentTree.getRoot(), 300, 50, 100);
+        Circle highlight = new Circle(300, 50, 20);
+        highlight.setStyle("-fx-fill: yellow;");
+        treeVisualizer.getChildren().add(highlight);
+
+        if (node.getValue() == value) {
+            updateTreeVisualizer("Node with value " + value + " found.");
+            return;
+        }
+
+        for (Node child : node.getChildren()) {
+            searchAndHighlight(child, value);
+        }
     }
 
     // Het thao tac tren cay
@@ -225,4 +288,4 @@ public class TreeVisualizerController {
             childX += dx; // Di chuyển tọa độ cho các node con tiếp theo
         }
     }
-
+}
