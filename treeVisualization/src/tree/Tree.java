@@ -18,7 +18,9 @@ public abstract class Tree {
         return root;
     }
 	
-    public abstract void createTree(int value);
+    public void createTree(int value) {
+    	this.root = new Node(value);
+    };
 	public abstract boolean insertNode(Node parent, int value);
 	public abstract void deleteNode(int value);
 	public abstract boolean updateNode(int oldValue, int newValue);

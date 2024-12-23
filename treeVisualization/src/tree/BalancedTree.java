@@ -18,10 +18,6 @@ public class BalancedTree extends Tree {
         this.maxHeightDifference = maxHeightDifference;
     }
 
-    @Override
-    public void createTree(int value) {
-        this.root = new Node(value);
-    }
 
     @Override
     public boolean insertNode(Node parent, int value) {

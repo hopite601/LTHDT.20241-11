@@ -10,10 +10,6 @@ public class BinaryTree extends Tree {
 		super();
 	}
 	
-	@Override
-	public void createTree(int value) {
-		this.root = new Node(value);
-	}
 	
 	@Override
     public boolean insertNode(Node parent, int value) {
