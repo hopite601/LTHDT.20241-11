@@ -1,5 +1,6 @@
 package GUI;
 
+import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.TextField;
@@ -17,7 +18,7 @@ public class TreeDialog {
 	        dialog.getDialogPane().setContent(txtNodeValue);
 
 	        ButtonType okButton = new ButtonType("OK");
-	        ButtonType cancelButton = new ButtonType("Cancel");
+	        ButtonType cancelButton = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
 	        dialog.getDialogPane().getButtonTypes().addAll(okButton, cancelButton);
 
 	        dialog.setResultConverter(dialogButton -> {
@@ -53,7 +54,7 @@ public class TreeDialog {
 	        dialog.getDialogPane().setContent(vbox);
 
 	        ButtonType okButton = new ButtonType("OK");
-	        ButtonType cancelButton = new ButtonType("Cancel");
+	        ButtonType cancelButton = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
 	        dialog.getDialogPane().getButtonTypes().addAll(okButton, cancelButton);
 
 	        dialog.setResultConverter(dialogButton -> {

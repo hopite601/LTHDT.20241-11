@@ -58,7 +58,7 @@ public class TreeVisualizerController {
     @FXML
     void selectBalancedBinaryTree(ActionEvent event) {
     	currentTree = new BinaryTree();
-    	updateTreeVisualizer("Binary Tree selected.");
+    	updateTreeVisualizer("BalancedBinary Tree selected.");
     }
 
     @FXML
@@ -70,7 +70,7 @@ public class TreeVisualizerController {
     @FXML
     void selectBinaryTree(ActionEvent event) {
     	currentTree = new BalancedBinaryTree(1);
-    	updateTreeVisualizer("Balanced Binary Tree selected.");
+    	updateTreeVisualizer("Binary Tree selected.");
     }
     
     // Het xu li chon cay
@@ -79,22 +79,19 @@ public class TreeVisualizerController {
     // Thao tac tren cay
     @FXML
     void btnCreatePressed(ActionEvent event) {
-    	 if (currentTree != null && currentTree instanceof GenericTree) {
+    	 if (currentTree != null ) {
     		 int value = TreeDialog.showCreateDialog(); // hien thi dialog de nhap value
-             currentTree.createTree(value);  
-             updateTreeVisualizer("Tree created with root = " + value);
-         } else if(true) {
-        	 
-         } else if(true) {
-        	 
-         } else if(true) {
-        	 
-         }
+             if(value != - 1) {
+            	 currentTree.createTree(value);  
+            	 updateTreeVisualizer("Tree created with root = " + value);
+             }
+          }
+
     }
     
     @FXML
     void btnInsertPressed(ActionEvent event) {
-        if (currentTree != null && currentTree instanceof GenericTree) {
+        if (currentTree != null) {
         	int[] values = TreeDialog.showInsertDialog(); // hien thi dialog insert
         	if(values[0] != -1 && values[1] != -1) {
         		Node parent = currentTree.findNodeByValue(currentTree.getRoot(), values[0]);
@@ -108,21 +105,15 @@ public class TreeVisualizerController {
         	} else {
         		updateTreeVisualizer("Invalid input or insertion canceled.");
         	}
-        } else if(true) {
-        	
-        } else if(true) {
-        	
-        } else if(true) {
-        	
         }
-
     }
-    
     @FXML
     void btnDeletePressed(ActionEvent event) {
         if (currentTree != null) {
             currentTree.deleteNode(5); 
             updateTreeVisualizer("Node with value 5 deleted.");
+        }else {
+        	
         }
     }
     
