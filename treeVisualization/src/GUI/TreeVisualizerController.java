@@ -113,18 +113,27 @@ public class TreeVisualizerController {
     @FXML
     void btnDeletePressed(ActionEvent event) {
         if (currentTree != null) {
-            currentTree.deleteNode(5); 
-            updateTreeVisualizer("Node with value 5 deleted.");
+        	int value = TreeDialog.showDeleteDialog();
+            currentTree.deleteNode(value); 
+            updateTreeVisualizer("Node with value " + value + " deleted.");
         }else {
-        	
+        	updateTreeVisualizer("Invalid input or insertion canceled.");
         }
     }
     
     @FXML
     void btnUpdatePressed(ActionEvent event) {
         if (currentTree != null) {
-            currentTree.updateNode(5, 10);  // Cập nhật giá trị của nút từ 5 thành 10
-            updateTreeVisualizer("Node updated from 5 to 10.");
+        	int[] values = TreeDialog.showUpdateDialog();
+        	if(values[0] != -1 && values[1] != -1) {
+        		currentTree.updateNode(values[0], values[1]);  // Cập nhật giá trị của nút từ 5 thành 10
+        		updateTreeVisualizer("Node updated from " + values[0]  + "to" + values[1]);
+        	} else {
+        		updateTreeVisualizer("Invalid input or insertion canceled.");
+        	}
+    
+        }else {
+        	updateTreeVisualizer("Invalid input or insertion canceled.");
         }
     }
     
