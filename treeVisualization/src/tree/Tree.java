@@ -19,7 +19,7 @@ public abstract class Tree {
     }
 	
     public abstract void createTree(int value);
-	public abstract void insertNode(Node parent, int value);
+	public abstract boolean insertNode(Node parent, int value);
 	public abstract void deleteNode(int value);
 	public abstract void updateNode(int oldValue, int newValue);
     public Node search(int value) {
@@ -151,5 +151,21 @@ public abstract class Tree {
         }
         Collections.reverse(path);  // Đảo ngược để có đường đi từ gốc đến node
         return path;
+    }
+    
+    public Node findNodeByValue(Node root, int value) {
+        if (root == null) return null;
+        
+        if (root.getValue() == value) {
+            return root;
+        }
+
+        // Tìm kiếm trong các node con
+        for (Node child : root.getChildren()) {
+            Node result = findNodeByValue(child, value);
+            if (result != null) return result;
+        }
+
+        return null;  
     }
 }

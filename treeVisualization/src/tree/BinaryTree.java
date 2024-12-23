@@ -16,15 +16,18 @@ public class BinaryTree extends Tree {
 	}
 	
 	@Override
-    public void insertNode(Node parent, int value) {
+    public boolean insertNode(Node parent, int value) {
         if (parent != null) {
             if (parent.getChildren().size() < 2) {
                 Node newNode = new Node(value);
                 parent.addChild(newNode);
+                return true;
             } else {
                 System.out.println("A binary node can have only two children.");
+                return false;
             }
         }
+        return false;
     }
 	
 	@Override

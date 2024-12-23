@@ -16,12 +16,14 @@ public class GenericTree extends Tree{
 	}
 	
 	@Override
-	public void insertNode(Node parent, int value) {
+	public boolean insertNode(Node parent, int value) {
 		if(parent != null) {
 			Node newNode = new Node(value);
 			parent.addChild(newNode);
+			return true;
 		} else {
 			System.out.println("parent node is null, cannot insert");
+			return false;
 		}
 	}
 	

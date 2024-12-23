@@ -24,7 +24,7 @@ public class BalancedTree extends Tree {
     }
 
     @Override
-    public void insertNode(Node parent, int value) {
+    public boolean insertNode(Node parent, int value) {
         if (parent != null) {
             Node newNode = new Node(value);
             parent.addChild(newNode);
@@ -32,8 +32,12 @@ public class BalancedTree extends Tree {
             if (!isBalanced(this.root)) {
                 parent.getChildren().remove(newNode); // Undo insertion
                 System.out.println("Insertion would unbalance the tree. Operation aborted.");
+                return false;
             }
+            
+            return true;
         }
+        return false;
     }
 
     @Override

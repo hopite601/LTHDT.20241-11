@@ -15,7 +15,7 @@ public class BalancedBinaryTree extends BinaryTree {
     }
 
     @Override
-    public void insertNode(Node parent, int value) {
+    public boolean insertNode(Node parent, int value) {
         if (parent != null) {
             if (parent.getChildren().size() < 2) {
                 Node newNode = new Node(value);
@@ -24,11 +24,15 @@ public class BalancedBinaryTree extends BinaryTree {
                 if (!isBalancedBinary(this.root)) {
                     parent.getChildren().remove(newNode); // Undo insertion
                     System.out.println("Insertion would unbalance the binary tree. Operation aborted.");
+                    return false;
                 }
+                return true;
             } else {
                 System.out.println("A binary node can have only two children.");
+                return false;
             }
         }
+        return false;
     }
 
     public boolean isBalancedBinary(Node node) {
