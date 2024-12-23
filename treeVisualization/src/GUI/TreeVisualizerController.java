@@ -58,13 +58,15 @@ public class TreeVisualizerController {
     
     @FXML
     void selectBalancedBinaryTree(ActionEvent event) {
-    	currentTree = new BinaryTree();
+    	int maxHeightDif = TreeDialog.maxHeightDifDialog(); // nhap maxHeight
+    	currentTree = new BalancedBinaryTree(maxHeightDif);
     	updateTreeVisualizer("BalancedBinary Tree selected.");
     }
 
     @FXML
     void selectBalancedTree(ActionEvent event) {
-    	currentTree = new BalancedTree(1);
+    	int maxHeightDif = TreeDialog.maxHeightDifDialog(); // nhap maxHeight
+    	currentTree = new BalancedTree(maxHeightDif);
     	updateTreeVisualizer("Balanced Tree selected.");
     }
 
@@ -229,9 +231,23 @@ public class TreeVisualizerController {
             childX += dx;  // Di chuyển tọa độ cho các node con tiếp theo
         }
     }
-
-
-
-
+    
+    private void searchAndHighlight(Node node, int value) {
+        if (node == null)
+            return;
+        // Highlight the current node
+        treeVisualizer.getChildren().clear();
+        drawTree(currentTree.getRoot(), 300, 50, 100);
+        Circle highlight = new Circle(300, 50, 20);
+        highlight.setStyle("-fx-fill: yellow;");
+        treeVisualizer.getChildren().add(highlight);
+        if (node.getValue() == value) {
+            updateTreeVisualizer("Node with value " + value + " found.");
+            return;
+        }
+        for (Node child : node.getChildren()) {
+            searchAndHighlight(child, value);
+        }
+    }
 
 }
