@@ -39,12 +39,13 @@ public class BinaryTree extends Tree {
 	}
 	
 	 @Override
-    public void updateNode(int oldValue, int newValue) {
-        Node nodeToUpdate = search(oldValue);
-        if (nodeToUpdate != null) {
-            nodeToUpdate.setValue(newValue);
-        }
-    }
+	 public boolean updateNode(int oldValue, int newValue) {
+	        Node nodeToUpdate = search(oldValue);
+	        if (nodeToUpdate != null) {
+	            nodeToUpdate.setValue(newValue);
+	        }
+	        return true;
+	  }
 	
 	
 	

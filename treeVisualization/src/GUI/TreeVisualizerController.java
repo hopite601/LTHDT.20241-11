@@ -103,7 +103,7 @@ public class TreeVisualizerController {
         		if(currentTree.insertNode(parent, values[1])) {
         			updateTreeVisualizer("Parent: " + values[0] + " and child: " + values[1] + " are inserted.");
         		} else {
-        			updateTreeVisualizer("Invalid input or insertion canceled.");
+        			updateTreeVisualizer("Node already exists with value: " +  values[1] );
         		}
         	} else {
         		updateTreeVisualizer("Invalid input or insertion canceled.");
@@ -126,8 +126,12 @@ public class TreeVisualizerController {
         if (currentTree != null) {
         	int[] values = TreeDialog.showUpdateDialog();
         	if(values[0] != -1 && values[1] != -1) {
-        		currentTree.updateNode(values[0], values[1]);  // Cập nhật giá trị của nút từ 5 thành 10
-        		updateTreeVisualizer("Node updated from " + values[0]  + "to" + values[1]);
+        		if(currentTree.updateNode(values[0], values[1])) {
+        			updateTreeVisualizer("Node updated from " + values[0]  + "to" + values[1]);
+        		}else {
+        			updateTreeVisualizer("old value not exists OR new value already exists");
+        		}
+ 
         	} else {
         		updateTreeVisualizer("Invalid input or insertion canceled.");
         	}
@@ -205,7 +209,7 @@ public class TreeVisualizerController {
 
         // Thêm một Label hiển thị thông báo vào cây
         Text label = new Text(message);
-        label.setStyle("-fx-font-size: 16px; -fx-text-fill: blue;");
+        label.setStyle("-fx-font-size: 14px;");
         label.setX(10);
         label.setY(30);
         treeVisualizer.getChildren().add(label);
