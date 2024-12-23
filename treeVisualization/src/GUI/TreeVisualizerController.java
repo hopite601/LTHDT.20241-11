@@ -1,13 +1,14 @@
 package GUI;
 
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
-import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
@@ -141,12 +142,19 @@ public class TreeVisualizerController {
     // tro giup
     @FXML
     void btnHelpPressed(ActionEvent event) {
-
+    	Alert alert = new Alert(AlertType.INFORMATION);
+    	alert.setTitle("User Guide");
+    	alert.setHeaderText("Instructions for Tree Operations");
+    	alert.setContentText("1. Select a tree type to get started.\n" +
+    		    "2. Use the operation buttons like Create, Insert, Delete, and Update to manipulate the tree.\n" +
+    		    "3. Each operation will update the visualization on the screen.\n" +
+    		    "4. To exit the application, click the Quit button.\n" );
+    	alert.showAndWait();
     }
     
     @FXML
     void btnQuitPressed(ActionEvent event) {
-
+    	 Platform.exit();
     }
     
     // Het tro giup
