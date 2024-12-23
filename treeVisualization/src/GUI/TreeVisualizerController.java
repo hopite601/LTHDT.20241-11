@@ -136,21 +136,39 @@ public class TreeVisualizerController {
         if (currentTree != null) {
             String traversalMethod = TreeDialog.showTraversalDialog();
             if (traversalMethod != null) {
+                pseudoCode.getChildren().clear();
+                pseudoCode.getChildren().add(new Label("Traversal using " + traversalMethod));
+                pseudoCode.getChildren().add(new Label("1. Start at the root node."));
+                pseudoCode.getChildren().add(new Label("2. Visit the current node."));
+                pseudoCode.getChildren()
+                        .add(new Label("3. Move to the next node according to " + traversalMethod + " rules."));
+                pseudoCode.getChildren().add(new Label("4. Repeat steps 2-3 until all nodes are visited."));
+
                 List<Node> traversalResult = currentTree.traverse(traversalMethod);
 
                 // Clear the visualizer
                 treeVisualizer.getChildren().clear();
 
-                // Display the traversal result
+                // Display the traversal result with highlighting
                 double x = 50;
                 double y = 50;
                 double dx = 50;
                 for (Node node : traversalResult) {
                     Circle circle = new Circle(x, y, 20);
-                    circle.setStyle("-fx-fill: lightblue;");
+                    circle.setStyle("-fx-fill: yellow;"); // Highlight the current node
                     Text text = new Text(x - 5, y + 5, String.valueOf(node.getValue()));
                     treeVisualizer.getChildren().addAll(circle, text);
                     x += dx;
+
+                    // Pause to show the highlighting effect
+                    try {
+                        Thread.sleep(500); // Adjust the delay as needed
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+
+                    // Reset the node color after highlighting
+                    circle.setStyle("-fx-fill: lightblue;");
                 }
             } else {
                 updateTreeVisualizer("Traversal canceled.");
@@ -179,6 +197,27 @@ public class TreeVisualizerController {
             }
         } else {
             updateTreeVisualizer("No tree selected.");
+        }
+    }
+
+    private void searchAndHighlight(Node node, int value) {
+        if (node == null)
+            return;
+
+        // Highlight the current node
+        treeVisualizer.getChildren().clear();
+        drawTree(currentTree.getRoot(), 300, 50, 100);
+        Circle highlight = new Circle(300, 50, 20);
+        highlight.setStyle("-fx-fill: yellow;");
+        treeVisualizer.getChildren().add(highlight);
+
+        if (node.getValue() == value) {
+            updateTreeVisualizer("Node with value " + value + " found.");
+            return;
+        }
+
+        for (Node child : node.getChildren()) {
+            searchAndHighlight(child, value);
         }
     }
 
