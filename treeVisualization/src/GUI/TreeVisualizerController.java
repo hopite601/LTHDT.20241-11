@@ -25,9 +25,6 @@ public class TreeVisualizerController {
     
     private Tree currentTree; // luu tru cay hien tai
     
-    private TextField txtNodeValue;
-    private TextField txtParentValue;
-    private TextField txtNewValue;
 
     private Dialog<ButtonType> dialog;
     
@@ -86,11 +83,11 @@ public class TreeVisualizerController {
     		 int value = TreeDialog.showCreateDialog(); // hien thi dialog de nhap value
              currentTree.createTree(value);  
              updateTreeVisualizer("Tree created with root = " + value);
-         } else if(1) {
+         } else if(true) {
         	 
-         } else if(1) {
+         } else if(true) {
         	 
-         } else if(1) {
+         } else if(true) {
         	 
          }
     }
@@ -124,7 +121,7 @@ public class TreeVisualizerController {
     @FXML
     void btnDeletePressed(ActionEvent event) {
         if (currentTree != null) {
-            currentTree.deleteNode(5);  // Xóa nút có giá trị 5
+            currentTree.deleteNode(5); 
             updateTreeVisualizer("Node with value 5 deleted.");
         }
     }
