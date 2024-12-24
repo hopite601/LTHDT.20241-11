@@ -81,7 +81,8 @@
                   <Button fx:id="btnBalancedTree" layoutX="97.0" layoutY="13.0" mnemonicParsing="false" onAction="#selectBalancedTree" text="Balanced Tree" />
                   <Button fx:id="btnBalancedBinaryTree" layoutX="176.0" layoutY="13.0" mnemonicParsing="false" onAction="#selectBalancedBinaryTree" text="Balanced Binary Tree" />
                   <Button fx:id="btnHelp" layoutX="270.0" layoutY="13.0" mnemonicParsing="false" onAction="#btnHelpPressed" text="Help" />
-                  <Button fx:id="btnQuit" layoutX="400.0" layoutY="13.0" mnemonicParsing="false" onAction="#btnQuitPressed" text="Quit" />
+                  <HBox prefHeight="30.0" prefWidth="426.0" />
+                  <Button fx:id="btnQuit" mnemonicParsing="false" onAction="#btnQuitPressed" prefHeight="26.0" prefWidth="48.0" text="Quit" />
               </items>
             </ToolBar>
          </children>
@@ -98,13 +99,34 @@
    <left>
       <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="btnCreate" mnemonicParsing="false" onAction="#btnCreatePressed" text="Create" />
-            <Button fx:id="btnDelete" mnemonicParsing="false" onAction="#btnInsertPressed" text="Insert" />
-            <Button fx:id="btnDelete" mnemonicParsing="false" onAction="#btnDeletePressed" text="Delete" />
-            <Button fx:id="btnUpdate" mnemonicParsing="false" onAction="#btnUpdatePressed" text="Update" />
-            <Button fx:id="btnTraverse" mnemonicParsing="false" onAction="#btnTraversePressed" text="Traverse" />
-            <Button fx:id="btnSearch" mnemonicParsing="false" onAction="#btnSearchPressed" text="Search" />
+            <Button fx:id="btnCreate" mnemonicParsing="false" onAction="#btnCreatePressed" prefHeight="25.0" prefWidth="60.0" text="Create">
+               <VBox.margin>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </VBox.margin></Button>
+            <Button fx:id="btnDelete" mnemonicParsing="false" onAction="#btnInsertPressed" prefHeight="25.0" prefWidth="60.0" text="Insert">
+               <VBox.margin>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </VBox.margin></Button>
+            <Button fx:id="btnDelete" mnemonicParsing="false" onAction="#btnDeletePressed" prefHeight="25.0" prefWidth="60.0" text="Delete">
+               <VBox.margin>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </VBox.margin></Button>
+            <Button fx:id="btnUpdate" mnemonicParsing="false" onAction="#btnUpdatePressed" prefHeight="25.0" prefWidth="60.0" text="Update">
+               <VBox.margin>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </VBox.margin></Button>
+            <Button fx:id="btnTraverse" mnemonicParsing="false" onAction="#btnTraversePressed" text="Traverse">
+               <VBox.margin>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </VBox.margin></Button>
+            <Button fx:id="btnSearch" mnemonicParsing="false" onAction="#btnSearchPressed" prefHeight="26.0" prefWidth="60.0" text="Search">
+               <VBox.margin>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </VBox.margin></Button>
          </children>
+         <BorderPane.margin>
+            <Insets />
+         </BorderPane.margin>
       </VBox>
    </left>
 </BorderPane>

@@ -172,9 +172,10 @@ public class TreeVisualizerController {
     @FXML
     void btnQuitPressed(ActionEvent event) {
         Alert alert = new Alert(AlertType.CONFIRMATION);
-        alert.setTitle("Xác nhận thoát");
-        alert.setHeaderText("Bạn có chắc chắn muốn thoát không?");
-        alert.setContentText("Nhấn 'OK' để thoát hoặc 'Cancel' để quay lại.");
+        alert.setTitle("Exit Confirmation");
+        alert.setHeaderText("Are you sure you want to exit?");
+        alert.setContentText("Click 'OK' to exit or 'Cancel' to go back.");
+
 
         // Hiển thị và xử lý kết quả
         alert.showAndWait().ifPresent(response -> {
