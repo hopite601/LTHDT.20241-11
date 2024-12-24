@@ -22,7 +22,7 @@ public abstract class Tree {
     	this.root = new Node(value);
     };
 	public abstract boolean insertNode(Node parent, int value);
-	public abstract void deleteNode(int value);
+	public abstract boolean deleteNode(int value);
 	public abstract boolean updateNode(int oldValue, int newValue);
     public Node search(int value) {
         return searchDFS(root, value);

@@ -29,10 +29,15 @@ public class GenericTree extends Tree{
 	}
 	
 	@Override
-	public void deleteNode(int value) {
-		Node deleteNode = search(value);
-		if(deleteNode != null) {
-			deleteNode.removeSelf();
+	public boolean deleteNode(int value) {
+		if(search(value) != null) {
+			Node deleteNode = search(value);
+			if(deleteNode != null) {
+				deleteNode.removeSelf();
+			}
+			return true;
+		} else {
+			return false;
 		}
 	}
 	

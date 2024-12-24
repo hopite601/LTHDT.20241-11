@@ -60,6 +60,19 @@ public class BalancedBinaryTree extends BinaryTree {
             return false;
         }
     }
+    
+    @Override
+	public boolean deleteNode(int value) {
+		if(search(value) != null) {
+			Node deleteNode = search(value);
+			if(deleteNode != null) {
+				deleteNode.removeSelf();
+			}
+			return true;
+		} else {
+			return false;
+		}
+	}
 
     public boolean isBalancedBinary(Node node) {
         if (node == null) {
