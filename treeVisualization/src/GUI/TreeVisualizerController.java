@@ -169,7 +169,17 @@ public class TreeVisualizerController {
     
     @FXML
     void btnQuitPressed(ActionEvent event) {
-    	 Platform.exit();
+    	 Alert alert = new Alert(AlertType.CONFIRMATION);
+         alert.setTitle("Xác nhận thoát");
+         alert.setHeaderText("Bạn có chắc chắn muốn thoát không?");
+         alert.setContentText("Nhấn 'OK' để thoát hoặc 'Cancel' để quay lại.");
+
+         // Hiển thị và xử lý kết quả
+         alert.showAndWait().ifPresent(response -> {
+             if (response == ButtonType.OK) {
+                 Platform.exit(); // Thoát ứng dụng
+             }
+         });
     }
     
     // Het tro giup
@@ -262,5 +272,7 @@ public class TreeVisualizerController {
             searchAndHighlight(child, value);
         }
     }
+    
+    
 
 }
