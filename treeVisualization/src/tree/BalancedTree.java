@@ -39,10 +39,8 @@ public class BalancedTree extends Tree {
         parent.addChild(newNode);
 
         // Kiểm tra nếu cây không còn cân bằng sau khi thêm node
-        if (!isBalanced(parent)) {
-            System.out.println("The tree is unbalanced, node not added.");
-            parent.removeChild(newNode); // Loại bỏ node vừa thêm
-            return false;  // Trả về false nếu cây không còn cân bằng
+        if (!isBalanced(root)) {
+            balanceTree(root);
         }
 
         return true; // Trả về true nếu node được thêm vào thành công
@@ -71,9 +69,7 @@ public class BalancedTree extends Tree {
 
             // Kiểm tra nếu cây không còn cân bằng sau khi cập nhật
             if (!isBalanced(root)) {
-                System.out.println("Update would unbalance the tree. Operation aborted.");
-                nodeToUpdate.setValue(oldValue); // Hoàn tác cập nhật
-                return false;
+            	balanceTree(root);
             }
 
             System.out.println("Updated node value from " + oldValue + " to " + newValue);
@@ -106,4 +102,20 @@ public class BalancedTree extends Tree {
         }
         return 1 + maxHeight;
     }
+    
+    private void balanceTree(Node node) {
+        // Phân phối lại các node con để đảm bảo độ cao giữa các nhánh gần nhau
+        List<Node> children = node.getChildren();
+        while (!isBalanced(node)) {
+            // Lấy các node cao nhất và thấp nhất để phân phối lại
+            Node highest = children.get(0);
+            Node lowest = children.get(children.size() - 1);
+            // Di chuyển node từ highest sang lowest (logic cần được cụ thể hóa hơn)
+            if (highest.getChildren().size() > 0) {
+                Node moveNode = highest.getChildren().remove(0);
+                lowest.addChild(moveNode);
+            }
+        }
+    }
+
 }
