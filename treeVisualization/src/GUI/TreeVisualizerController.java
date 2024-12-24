@@ -52,28 +52,28 @@ public class TreeVisualizerController {
     // Xu li chon cay
     @FXML
     void selectGenericTree(ActionEvent event) {
-    	currentTree = new GenericTree();
-    	updateTreeVisualizer("Generic Tree selected.");
+        currentTree = new GenericTree();
+        updateTreeVisualizer("Generic Tree selected.");
     }
     
     @FXML
     void selectBalancedBinaryTree(ActionEvent event) {
-    	int maxHeightDif = TreeDialog.maxHeightDifDialog(); // nhap maxHeight
-    	currentTree = new BalancedBinaryTree(maxHeightDif);
-    	updateTreeVisualizer("BalancedBinary Tree selected.");
+        int maxHeightDif = TreeDialog.maxHeightDifDialog(); // nhap maxHeight
+        currentTree = new BalancedBinaryTree(maxHeightDif);
+        updateTreeVisualizer("BalancedBinary Tree selected.");
     }
 
     @FXML
     void selectBalancedTree(ActionEvent event) {
-    	int maxHeightDif = TreeDialog.maxHeightDifDialog(); // nhap maxHeight
-    	currentTree = new BalancedTree(maxHeightDif);
-    	updateTreeVisualizer("Balanced Tree selected.");
+        int maxHeightDif = TreeDialog.maxHeightDifDialog(); // nhap maxHeight
+        currentTree = new BalancedTree(maxHeightDif);
+        updateTreeVisualizer("Balanced Tree selected.");
     }
 
     @FXML
     void selectBinaryTree(ActionEvent event) {
-    	currentTree = new BalancedBinaryTree(1);
-    	updateTreeVisualizer("Binary Tree selected.");
+        currentTree = new BalancedBinaryTree(1);
+        updateTreeVisualizer("Binary Tree selected.");
     }
     
     // Het xu li chon cay
@@ -82,73 +82,75 @@ public class TreeVisualizerController {
     // Thao tac tren cay
     @FXML
     void btnCreatePressed(ActionEvent event) {
-    	 if (currentTree != null ) {
-    		 int value = TreeDialog.showCreateDialog(); // hien thi dialog de nhap value
-             if(value != - 1) {
-            	 currentTree.createTree(value);  
-            	 updateTreeVisualizer("Tree created with root = " + value);
-             }
-          }
-
+        if (currentTree != null ) {
+            int value = TreeDialog.showCreateDialog(); // hien thi dialog de nhap value
+            if(value != -1) {
+                currentTree.createTree(value);  
+                updateTreeVisualizer("Tree created with root = " + value);
+            }
+        } else {
+            updateTreeVisualizer("Please select a tree type first.");
+        }
     }
     
     @FXML
     void btnInsertPressed(ActionEvent event) {
         if (currentTree != null) {
-        	int[] values = TreeDialog.showInsertDialog(); // hien thi dialog insert
-        	if(values[0] != -1 && values[1] != -1) {
-        		Node parent = currentTree.findNodeByValue(currentTree.getRoot(), values[0]);
-        		
-        		// kiem tra xem them node dc co dc ko
-        		if(currentTree.insertNode(parent, values[1])) {
-        			updateTreeVisualizer("Parent: " + values[0] + " and child: " + values[1] + " are inserted.");
-        		} else {
-        			updateTreeVisualizer("Node already exists with value: " +  values[1] );
-        		}
-        	} else {
-        		updateTreeVisualizer("Invalid input or insertion canceled.");
-        	}
+            int[] values = TreeDialog.showInsertDialog(); // hien thi dialog insert
+            if(values[0] != -1 && values[1] != -1) {
+                Node parent = currentTree.findNodeByValue(currentTree.getRoot(), values[0]);
+                
+                // kiem tra xem them node dc co dc ko
+                if(currentTree.insertNode(parent, values[1])) {
+                    updateTreeVisualizer("Parent: " + values[0] + " and child: " + values[1] + " are inserted.");
+                } else {
+                    updateTreeVisualizer("Node already exists with value: " +  values[1] );
+                }
+            } else {
+                updateTreeVisualizer("Invalid input or insertion canceled.");
+            }
+        } else {
+            updateTreeVisualizer("Please select a tree type first.");
         }
     }
+
     @FXML
     void btnDeletePressed(ActionEvent event) {
         if (currentTree != null) {
-        	int value = TreeDialog.showDeleteDialog();
+            int value = TreeDialog.showDeleteDialog();
             currentTree.deleteNode(value); 
             updateTreeVisualizer("Node with value " + value + " deleted.");
-        }else {
-        	updateTreeVisualizer("Invalid input or insertion canceled.");
+        } else {
+            updateTreeVisualizer("Please select a tree type first.");
         }
     }
     
     @FXML
     void btnUpdatePressed(ActionEvent event) {
         if (currentTree != null) {
-        	int[] values = TreeDialog.showUpdateDialog();
-        	if(values[0] != -1 && values[1] != -1) {
-        		if(currentTree.updateNode(values[0], values[1])) {
-        			updateTreeVisualizer("Node updated from " + values[0]  + "to" + values[1]);
-        		}else {
-        			updateTreeVisualizer("old value not exists OR new value already exists");
-        		}
- 
-        	} else {
-        		updateTreeVisualizer("Invalid input or insertion canceled.");
-        	}
-    
-        }else {
-        	updateTreeVisualizer("Invalid input or insertion canceled.");
+            int[] values = TreeDialog.showUpdateDialog();
+            if(values[0] != -1 && values[1] != -1) {
+                if(currentTree.updateNode(values[0], values[1])) {
+                    updateTreeVisualizer("Node updated from " + values[0]  + " to " + values[1]);
+                } else {
+                    updateTreeVisualizer("Old value not exists OR new value already exists");
+                }
+            } else {
+                updateTreeVisualizer("Invalid input or update canceled.");
+            }
+        } else {
+            updateTreeVisualizer("Please select a tree type first.");
         }
     }
     
     @FXML
     void btnTraversePressed(ActionEvent event) {
-
+        updateTreeVisualizer("Traverse functionality is under development.");
     }
     
     @FXML
     void btnSearchPressed(ActionEvent event) {
-
+        updateTreeVisualizer("Search functionality is under development.");
     }
     
     // Het thao tac tren cay
@@ -157,49 +159,55 @@ public class TreeVisualizerController {
     // tro giup
     @FXML
     void btnHelpPressed(ActionEvent event) {
-    	Alert alert = new Alert(AlertType.INFORMATION);
-    	alert.setTitle("User Guide");
-    	alert.setHeaderText("Instructions for Tree Operations");
-    	alert.setContentText("1. Select a tree type to get started.\n" +
-    		    "2. Use the operation buttons like Create, Insert, Delete, and Update to manipulate the tree.\n" +
-    		    "3. Each operation will update the visualization on the screen.\n" +
-    		    "4. To exit the application, click the Quit button.\n" );
-    	alert.showAndWait();
+        Alert alert = new Alert(AlertType.INFORMATION);
+        alert.setTitle("User Guide");
+        alert.setHeaderText("Instructions for Tree Operations");
+        alert.setContentText("1. Select a tree type to get started.\n" +
+                "2. Use the operation buttons like Create, Insert, Delete, and Update to manipulate the tree.\n" +
+                "3. Each operation will update the visualization on the screen.\n" +
+                "4. To exit the application, click the Quit button.\n" );
+        alert.showAndWait();
     }
     
     @FXML
     void btnQuitPressed(ActionEvent event) {
-    	 Platform.exit();
-    }
-    
-    // Het tro giup
+        Alert alert = new Alert(AlertType.CONFIRMATION);
+        alert.setTitle("Xác nhận thoát");
+        alert.setHeaderText("Bạn có chắc chắn muốn thoát không?");
+        alert.setContentText("Nhấn 'OK' để thoát hoặc 'Cancel' để quay lại.");
 
-    
-    // bottom bar
+        // Hiển thị và xử lý kết quả
+        alert.showAndWait().ifPresent(response -> {
+            if (response == ButtonType.OK) {
+                Platform.exit(); // Thoát ứng dụng
+            }
+        });
+    }
+
     @FXML
     void stepBackward(ActionEvent event) {
-
+        updateTreeVisualizer("Step Backward functionality is under development.");
     }
     
     @FXML
     void btnPlayPressed(ActionEvent event) {
-
+        updateTreeVisualizer("Play functionality is under development.");
     }
     
     @FXML
     void btnPausePressed(ActionEvent event) {
-
+        updateTreeVisualizer("Pause functionality is under development.");
     }
     
     @FXML
     void stepForward(ActionEvent event) {
-
+        updateTreeVisualizer("Step Forward functionality is under development.");
     }
     // het bottom bar
     
     
     private void updateTreeVisualizer(String message) {
-    	// Xóa tất cả các phần tử cũ
+        // Xóa tất cả các phần tử cũ
         treeVisualizer.getChildren().clear();
 
         if (currentTree != null) {
@@ -246,15 +254,18 @@ public class TreeVisualizerController {
     }
     
     private void searchAndHighlight(Node node, int value) {
-        if (node == null)
+        if (node == null) {
+            updateTreeVisualizer("Node with value " + value + " not found.");
             return;
+        }
+
         // Highlight the current node
         treeVisualizer.getChildren().clear();
         drawTree(currentTree.getRoot(), 300, 50, 100);
-        Circle highlight = new Circle(300, 50, 20);
-        highlight.setStyle("-fx-fill: yellow;");
-        treeVisualizer.getChildren().add(highlight);
         if (node.getValue() == value) {
+            Circle highlight = new Circle(300, 50, 20);
+            highlight.setStyle("-fx-fill: yellow;");
+            treeVisualizer.getChildren().add(highlight);
             updateTreeVisualizer("Node with value " + value + " found.");
             return;
         }
@@ -262,5 +273,4 @@ public class TreeVisualizerController {
             searchAndHighlight(child, value);
         }
     }
-
 }
