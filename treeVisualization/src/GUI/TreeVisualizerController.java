@@ -90,12 +90,6 @@ public class TreeVisualizerController {
              if(value != - 1) {
             	 currentTree.createTree(value);  
             	 updateTreeVisualizer("Tree created with root = " + value);
-            	 String pseudoCode = """
-                         CREATE_TREE(value):
-                         1. Create a new node with value.
-                         2. Set the node as the root of the tree.
-                         """;
-                 updatePseudoCode(pseudoCode);
              }
           }
 
@@ -111,15 +105,6 @@ public class TreeVisualizerController {
         		// kiem tra xem them node dc co dc ko
         		if(currentTree.insertNode(parent, values[1])) {
         			updateTreeVisualizer("Parent: " + values[0] + " and child: " + values[1] + " are inserted.");
-        			
-        			// Update pseudo-code
-                    String pseudoCode = """
-                        INSERT_NODE(parent, value):
-                        1. Find the parent node by value.
-                        2. Create a new node with the given value.
-                        3. Attach the new node to the parent node.
-                        """;
-                    updatePseudoCode(pseudoCode);
         		} else {
         			updateTreeVisualizer("Invalid input or insertion canceled.");
         		}
@@ -294,26 +279,7 @@ public class TreeVisualizerController {
         }
     }
     
-    private void updatePseudoCode(String pseudoCodeText) {
-        pseudoCode.getChildren().clear();
 
-        VBox container = new VBox();
-        container.setAlignment(Pos.CENTER); 
-        container.setPadding(new Insets(20, 10, 20, 10)); 
-        // Create a Text element for the pseudo-code
-        Text pseudoCodeTextElement = new Text(pseudoCodeText);
-        pseudoCodeTextElement.setStyle("-fx-font-size: 14px; -fx-fill: black;");
-        pseudoCodeTextElement.setWrappingWidth(pseudoCode.getWidth() - 40); // Adjust width to fit Pane
-
-        // Add the pseudo-code text to the container
-        container.getChildren().add(pseudoCodeTextElement);
-
-        // Add the container to the pseudoCode Pane
-        pseudoCode.getChildren().add(container);
-    }
-
-
-    
     
 
 }
