@@ -72,7 +72,7 @@ public class TreeVisualizerController {
 
     @FXML
     void selectBinaryTree(ActionEvent event) {
-    	currentTree = new BalancedBinaryTree(1);
+    	currentTree = new BinaryTree();
     	updateTreeVisualizer("Binary Tree selected.");
     }
     
@@ -103,7 +103,7 @@ public class TreeVisualizerController {
         		if(currentTree.insertNode(parent, values[1])) {
         			updateTreeVisualizer("Parent: " + values[0] + " and child: " + values[1] + " are inserted.");
         		} else {
-        			updateTreeVisualizer("Node already exists with value: " +  values[1] );
+        			updateTreeVisualizer("Invalid input or insertion canceled.");
         		}
         	} else {
         		updateTreeVisualizer("Invalid input or insertion canceled.");
@@ -127,7 +127,7 @@ public class TreeVisualizerController {
         	int[] values = TreeDialog.showUpdateDialog();
         	if(values[0] != -1 && values[1] != -1) {
         		if(currentTree.updateNode(values[0], values[1])) {
-        			updateTreeVisualizer("Node updated from " + values[0]  + "to" + values[1]);
+        			updateTreeVisualizer("Node updated from " + values[0]  + " to " + values[1]);
         		}else {
         			updateTreeVisualizer("old value not exists OR new value already exists");
         		}
