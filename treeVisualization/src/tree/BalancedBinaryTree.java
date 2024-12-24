@@ -16,7 +16,7 @@ public class BalancedBinaryTree extends BinaryTree {
 
     @Override
     public boolean insertNode(Node parent, int value) {
-        if (parent != null) {
+    	if (parent != null) {
             if (parent.getChildren().size() < 2) {
                 Node newNode = new Node(value);
                 parent.addChild(newNode);
@@ -26,6 +26,9 @@ public class BalancedBinaryTree extends BinaryTree {
                     System.out.println("Insertion would unbalance the binary tree. Operation aborted.");
                     return false;
                 }
+
+                // Rebalance the tree after insertion
+                balanceTree(this.root);
                 return true;
             } else {
                 System.out.println("A binary node can have only two children.");
@@ -63,15 +66,16 @@ public class BalancedBinaryTree extends BinaryTree {
     
     @Override
 	public boolean deleteNode(int value) {
-		if(search(value) != null) {
-			Node deleteNode = search(value);
-			if(deleteNode != null) {
-				deleteNode.removeSelf();
-			}
-			return true;
-		} else {
-			return false;
-		}
+    	Node deleteNode = search(value);
+        if (deleteNode != null) {
+            deleteNode.removeSelf();  // Remove node from the tree
+            // Rebalance the tree after deletion
+            balanceTree(this.root);
+            return true;
+        } else {
+            System.out.println("Node with value " + value + " not found.");
+            return false;
+        }
 	}
 
     public boolean isBalancedBinary(Node node) {
@@ -132,12 +136,12 @@ public class BalancedBinaryTree extends BinaryTree {
         newRoot.addChild(node);
 
         // Di chuyển các node con khác (nếu có) để giữ đúng cấu trúc
-        for (Node child : newRoot.getChildren()) {
+        /*for (Node child : newRoot.getChildren()) {
             if (!child.equals(node)) {
                 node.addChild(child);
                 newRoot.getChildren().remove(child);
             }
-        }
+        }*/
 
         return newRoot;
     }
@@ -154,12 +158,12 @@ public class BalancedBinaryTree extends BinaryTree {
         newRoot.addChild(node);
 
         // Di chuyển các node con khác (nếu có) để giữ đúng cấu trúc
-        for (Node child : newRoot.getChildren()) {
+        	/*for (Node child : newRoot.getChildren()) {
             if (!child.equals(node)) {
                 node.addChild(child);
                 newRoot.getChildren().remove(child);
-            }
-        }
+            } 
+        }*/
 
         return newRoot;
     }

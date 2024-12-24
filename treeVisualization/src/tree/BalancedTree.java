@@ -3,9 +3,7 @@
  */
 package tree;
 
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Queue;
 
 /**
  * 
@@ -40,7 +38,9 @@ public class BalancedTree extends Tree {
 
         // Kiểm tra nếu cây không còn cân bằng sau khi thêm node
         if (!isBalanced(root)) {
-            balanceTree(root);
+        	parent.removeChild(newNode);
+            
+            return false;
         }
 
         return true; // Trả về true nếu node được thêm vào thành công
@@ -48,15 +48,33 @@ public class BalancedTree extends Tree {
 
     @Override
 	public boolean deleteNode(int value) {
-		if(search(value) != null) {
-			Node deleteNode = search(value);
-			if(deleteNode != null) {
-				deleteNode.removeSelf();
-			}
-			return true;
-		} else {
-			return false;
-		}
+    	 //find the node to delete
+        Node nodeToDelete = search(value);
+        if (nodeToDelete == null) {
+            return false;
+        }
+
+        //remove the node
+        Node parent = nodeToDelete.getParent();
+        if (parent != null) {
+            parent.removeChild(nodeToDelete);
+        } else if (nodeToDelete == root) {
+            //if the node to delete is the root,
+            root = null; //delete the entire tree
+        }
+
+        //check if the tree remains balanced after deletion
+        if (!isBalanced(root)) {
+            //undo the deletion by re-adding the node to its parent
+            if (parent != null) {
+                parent.addChild(nodeToDelete);
+            } else {
+                root = nodeToDelete;
+            }
+            return false;
+        }
+
+        return true;
 	}
 
     @Override
@@ -86,7 +104,7 @@ public class BalancedTree extends Tree {
     }
 
 
-    private boolean isBalanced(Node node) {
+    /*private boolean isBalanced(Node node) {
         if (node == null) {
             return true;
         }
@@ -95,7 +113,43 @@ public class BalancedTree extends Tree {
         return Math.abs(leftHeight - rightHeight) <= maxHeightDifference &&
                isBalanced(node.getChildren().isEmpty() ? null : node.getChildren().get(0)) &&
                isBalanced(node.getChildren().size() < 2 ? null : node.getChildren().get(1));
+    }*/
+    
+    private boolean isBalanced(Node node) {
+        if (node == null) {
+            return true;
+        }
+
+        //heights of all child subtrees
+        int minHeight = Integer.MAX_VALUE;
+        int maxHeight = Integer.MIN_VALUE;
+
+        for (Node child : node.getChildren()) {
+            int childHeight = getHeight(child);
+            minHeight = Math.min(minHeight, childHeight);
+            maxHeight = Math.max(maxHeight, childHeight);
+        }
+
+        //if no children, heights remain as initialized
+        if (node.getChildren().isEmpty()) {
+            minHeight = maxHeight = 0;
+        }
+
+        //check if the height diff is valid
+        if (Math.abs(maxHeight - minHeight) > maxHeightDifference) {
+            return false;
+        }
+
+        //recursively check all children
+        for (Node child : node.getChildren()) {
+            if (!isBalanced(child)) {
+                return false;
+            }
+        }
+
+        return true;
     }
+
 
     private int getHeight(Node node) {
         if (node == null) {
