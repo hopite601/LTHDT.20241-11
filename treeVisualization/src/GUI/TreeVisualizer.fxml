@@ -99,7 +99,7 @@
       <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
          <children>
             <Button fx:id="btnCreate" mnemonicParsing="false" onAction="#btnCreatePressed" text="Create" />
-            <Button fx:id="btnDelete" mnemonicParsing="false" onAction="#btnInsertPressed" text="Insert" />
+            <Button fx:id="btnInsert" mnemonicParsing="false" onAction="#btnInsertPressed" text="Insert" />
             <Button fx:id="btnDelete" mnemonicParsing="false" onAction="#btnDeletePressed" text="Delete" />
             <Button fx:id="btnUpdate" mnemonicParsing="false" onAction="#btnUpdatePressed" text="Update" />
             <Button fx:id="btnTraverse" mnemonicParsing="false" onAction="#btnTraversePressed" text="Traverse" />
