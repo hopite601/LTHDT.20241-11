@@ -46,6 +46,14 @@ public class BalancedBinaryTree extends BinaryTree {
         return true;  // Trả về true nếu node được thêm vào thành công
     }
     
+	@Override
+	public void deleteNode(int value) {
+		Node deleteNode = search(value);
+		if(deleteNode != null) {
+			deleteNode.removeSelf();
+		}
+	}
+    
     @Override
     public boolean updateNode(int oldValue, int newValue) {
         // Kiểm tra nếu giá trị mới đã tồn tại trong cây
