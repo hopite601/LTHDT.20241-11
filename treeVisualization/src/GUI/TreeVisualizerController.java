@@ -116,6 +116,7 @@ public class TreeVisualizerController {
                 // kiem tra xem them node dc co dc ko
                 if (currentTree.insertNode(parent, values[1])) {
                     updateTreeVisualizer("Parent: " + values[0] + " and child: " + values[1] + " are inserted.");
+                    updateInsertPseudoCode(values[0], values[1]); // Hiển thị pseudo code cho hành động Insert
                 } else {
                     updateTreeVisualizer("Node already exists with value: " + values[1]);
                 }
@@ -133,6 +134,7 @@ public class TreeVisualizerController {
             int value = TreeDialog.showDeleteDialog();
             currentTree.deleteNode(value);
             updateTreeVisualizer("Node with value " + value + " deleted.");
+            updateDeletePseudoCode(value); // Hiển thị pseudo code cho hành động Delete
         } else {
             updateTreeVisualizer("Please select a tree type first.");
         }
@@ -145,6 +147,7 @@ public class TreeVisualizerController {
             if (values[0] != -1 && values[1] != -1) {
                 if (currentTree.updateNode(values[0], values[1])) {
                     updateTreeVisualizer("Node updated from " + values[0] + " to " + values[1]);
+                    updateUpdatePseudoCode(values[0], values[1]); // Hiển thị pseudo code cho hành động Update
                 } else {
                     updateTreeVisualizer("Old value not exists OR new value already exists");
                 }
@@ -154,6 +157,67 @@ public class TreeVisualizerController {
         } else {
             updateTreeVisualizer("Please select a tree type first.");
         }
+    }
+
+    private void updateInsertPseudoCode(int parentValue, int childValue) {
+        pseudoCode.getChildren().clear();
+        VBox vbox = new VBox();
+        String[] codeLines = new String[] {
+                "Insert(parent, child):",
+                "  parent = findNodeByValue(root, " + parentValue + ")",
+                "  if parent is not null:",
+                "    if child does not exist:",
+                "      create new node with value " + childValue,
+                "      add child to parent",
+                "    else:",
+                "      print 'Node already exists with value: " + childValue + "'",
+                "  else:",
+                "    print 'Parent node not found'"
+        };
+        for (String line : codeLines) {
+            Text text = new Text(line);
+            vbox.getChildren().add(text);
+        }
+        pseudoCode.getChildren().add(vbox);
+    }
+
+    private void updateDeletePseudoCode(int value) {
+        pseudoCode.getChildren().clear();
+        VBox vbox = new VBox();
+        String[] codeLines = new String[] {
+                "Delete(value):",
+                "  node = findNodeByValue(root, " + value + ")",
+                "  if node is not null:",
+                "    remove node from tree",
+                "  else:",
+                "    print 'Node with value " + value + " not found'"
+        };
+        for (String line : codeLines) {
+            Text text = new Text(line);
+            vbox.getChildren().add(text);
+        }
+        pseudoCode.getChildren().add(vbox);
+    }
+
+    private void updateUpdatePseudoCode(int oldValue, int newValue) {
+        pseudoCode.getChildren().clear();
+        VBox vbox = new VBox();
+        String[] codeLines = new String[] {
+                "Update(oldValue, newValue):",
+                "  node = findNodeByValue(root, " + oldValue + ")",
+                "  if node is not null:",
+                "    if newValue does not exist:",
+                "      update node value to " + newValue,
+                "    else:",
+                "      print 'Node with value " + newValue + " already exists'",
+                "  else:",
+                "    print 'Node with value " + oldValue + " not found'"
+        };
+        for (String line : codeLines) {
+            Text text = new Text(line);
+            vbox.getChildren().add(text);
+        }
+        pseudoCode.getChildren().add(vbox);
     }
 
     @FXML
