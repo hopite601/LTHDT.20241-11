@@ -239,8 +239,10 @@ public class TreeVisualizerController {
                         
                         
                         if (step == 4) { 
-                        	currentTree.updateNode(values[0], values[1]);
-                        	updateTreeVisualizer("Node updated from " + values[0] + " to " + values[1]);
+                        	 Platform.runLater(() -> {
+                             	currentTree.updateNode(values[0], values[1]);
+                            	updateTreeVisualizer("Node updated from " + values[0] + " to " + values[1]);
+                        	 });
                             return;
                         }
                     }
