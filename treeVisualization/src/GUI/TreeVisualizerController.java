@@ -111,7 +111,6 @@ public class TreeVisualizerController {
         if (currentTree != null) {
             int[] values = TreeDialog.showInsertDialog(); // hien thi dialog insert
             if (values[0] != -1 && values[1] != -1) {
-                Node parent = currentTree.findNodeByValue(currentTree.getRoot(), values[0]);
                 updateInsertPseudoCode(values[0], values[1]); // Hiển thị pseudo code cho hành động Insert
                 new Thread(() -> {
                     String[] codeLines = getInsertPseudoCodeLines(values[0], values[1]);
@@ -124,21 +123,39 @@ public class TreeVisualizerController {
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
+                        
+                        // node con da ton tai thi dung lai
+                        if(i == 7) {
+                        	updateTreeVisualizer("Node already exists with value: " + values[1]);
+                        	return;
+                        }
+                        
+                        // kiem tra parent co ton tai ko, neu ko thi nhay highlight xuong cuoi
                         if(step == 2 && currentTree.search(values[0]) == null) {
-                        	i = 7;
+                        	i = 8;
                         	continue;
+                        } else {
+                        	// kiem tra nut con da ton tai hay chua
+                        	if(step == 3 && currentTree.search(values[1]) == null) {
+                        		// chay tiep
+                        	} else if (step == 3 && currentTree.search(values[1]) != null) {
+                        		i = 6;
+                        		continue;
+                        	}
                         }
-                        if (step == 5) { // Dòng lệnh chèn node vào tree
-                            Platform.runLater(() -> {
-                                if (currentTree.insertNode(parent, values[1])) {
-                                    updateTreeVisualizer(
-                                            "Parent: " + values[0] + " and child: " + values[1] + " are inserted.");
-                                } else {
-                                    updateTreeVisualizer("Node already exists with value: " + values[1]);
-                                }
-                            });
-                            return;
+                        
+                        // da thoa man node cha, node con
+                        if(step == 5) {
+                        	Node parent = currentTree.search(values[0]);
+                        	 Platform.runLater(() -> {
+                                 if (currentTree.insertNode(parent, values[1])) {
+                                     updateTreeVisualizer(
+                                             "Parent: " + values[0] + " and child: " + values[1] + " are inserted.");
+                                 }
+                        	 });
+                        	return;
                         }
+                    
                     }
                 }).start();
             } else {
@@ -165,17 +182,17 @@ public class TreeVisualizerController {
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
-                    if (step == 3) { // Dòng lệnh xoá node khỏi tree
+                    if(i == 3) return;
+                    
+                    if (step == 2 && currentTree.search(value) != null) { // Dòng lệnh xoá node khỏi tree
                         Platform.runLater(() -> {
-                            Node nodeToDelete = currentTree.search(value);
-                            if (nodeToDelete != null) {
-                                currentTree.deleteNode(value);
-                                updateTreeVisualizer("Node with value " + value + " deleted.");
-                                nodeFound[0] = true;
-                            } else {
-                                updateTreeVisualizer("Node with value " + value + " not found.");
-                            }
+                        	currentTree.deleteNode(value);
+                            updateTreeVisualizer("Node with value " + value + " deleted.");
+                            nodeFound[0] = true;
                         });
+                    } else if(step == 2 && currentTree.search(value) == null) {
+                    	i = 4;
+                    	continue;
                     }
                 }
                 if (!nodeFound[0]) {
@@ -204,14 +221,27 @@ public class TreeVisualizerController {
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
-                        if (step == 4) { // Dòng lệnh cập nhật giá trị node
-                            Platform.runLater(() -> {
-                                if (currentTree.updateNode(values[0], values[1])) {
-                                    updateTreeVisualizer("Node updated from " + values[0] + " to " + values[1]);
-                                } else {
-                                    updateTreeVisualizer("Old value not exists OR new value already exists");
-                                }
-                            });
+                        if(i == 6) return;
+                        
+                        // kiem tra oldValue co ton tai ko
+                        if(i == 2 && currentTree.search(values[0]) != null) {
+                        	// kiem tra newValue co ton tai ko
+                        	if( i == 3 && currentTree.search(values[1]) != null) {
+                        		i = 5;
+                        		continue;
+                        	} else if (i == 3 && currentTree.search(values[1]) == null) {
+                        		i = 4;
+                        	}
+                        } else if ( i == 2 && currentTree.search(values[0]) == null) {
+                        	i = 7;
+                        	continue;
+                        }
+                        
+                        
+                        if (step == 4) { 
+                        	currentTree.updateNode(values[0], values[1]);
+                        	updateTreeVisualizer("Node updated from " + values[0] + " to " + values[1]);
+                            return;
                         }
                     }
                 }).start();
