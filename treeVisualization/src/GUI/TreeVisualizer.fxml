@@ -135,7 +135,7 @@
    <right>
       <Pane fx:id="pseudoCode" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" BorderPane.alignment="CENTER">
    <children>
-      <Label layoutX="10.0" layoutY="10.0" text="PseudoCode sẽ hiển thị tại đây." />
+      <Label layoutX="10.0" layoutY="10.0" text="PseudoCode is displayed here." />
    </children>
 </Pane>
  
