@@ -536,10 +536,12 @@ public class TreeVisualizerController {
         Alert alert = new Alert(AlertType.INFORMATION);
         alert.setTitle("User Guide");
         alert.setHeaderText("Instructions for Tree Operations");
-        alert.setContentText("1. Select a tree type to get started.\n" +
-                "2. Use the operation buttons like Create, Insert, Delete, and Update to manipulate the tree.\n" +
-                "3. Each operation will update the visualization on the screen.\n" +
-                "4. To exit the application, click the Quit button.\n");
+        alert.setContentText("""
+                1. Select a tree type to get started.
+                2. Use the operation buttons like Create, Insert, Delete, and Update to manipulate the tree.
+                3. Each operation will update the visualization on the screen.
+                4. To exit the application, click the Quit button.
+                """);
         alert.showAndWait();
     }
 
@@ -597,15 +599,7 @@ public class TreeVisualizerController {
     private void clearPseudoCodeHighlight() {
         pseudoCode.getChildren().clear();
     }
-
     // het bottom bar
-
-    private void updateVisualization() {
-        Node currentNode = traverseNodes.get(currentStep);
-        int pseudoStep = pseudoSteps.get(currentStep);
-        highlightNode(currentNode);
-        highlightPseudoCodeLine(getPseudoCodeLines(traversalMethod), pseudoStep);
-    }
 
     private void updateTreeVisualizer(String message) {
         // Xóa tất cả các phần tử cũ
@@ -660,25 +654,5 @@ public class TreeVisualizerController {
         }
     }
 
-    private void searchAndHighlight(Node node, int value) {
-        if (node == null) {
-            updateTreeVisualizer("Node with value " + value + " not found.");
-            return;
-        }
-
-        // Highlight the current node
-        treeVisualizer.getChildren().clear();
-        drawTree(currentTree.getRoot(), 300, 50, 100);
-        if (node.getValue() == value) {
-            Circle highlight = new Circle(300, 50, 20);
-            highlight.setStyle("-fx-fill: yellow;");
-            treeVisualizer.getChildren().add(highlight);
-            updateTreeVisualizer("Node with value " + value + " found.");
-            return;
-        }
-        for (Node child : node.getChildren()) {
-            searchAndHighlight(child, value);
-        }
-    }
 }
 // test
