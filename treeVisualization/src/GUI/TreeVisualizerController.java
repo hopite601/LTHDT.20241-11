@@ -1,6 +1,7 @@
 package GUI;
 
 import java.util.List;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -28,6 +29,14 @@ import tree.Tree;
 public class TreeVisualizerController {
     private Map<Node, Double> nodePositionX = new HashMap<>();
     private Map<Node, Double> nodePositionY = new HashMap<>();
+
+    private volatile boolean isPaused = false;
+    private Thread traverseThread;
+
+    private List<Node> traverseNodes;
+    private List<Integer> pseudoSteps;
+    private int currentStep;
+    private String traversalMethod;
 
     @FXML
     private Pane treeVisualizer; // man hinh chinh hien thi
@@ -150,11 +159,13 @@ public class TreeVisualizerController {
     @FXML
     void btnTraversePressed(ActionEvent event) {
         if (currentTree != null) {
-            String method = TreeDialog.showTraversalDialog(); // Hiển thị dialog chọn phương pháp traverse
-            if (method != null) {
-                updatePseudoCode(method); // Hiển thị mã giả của phương pháp traverse
-                traverseTree(method); // Biểu diễn quá trình traverse trên cây
+            traversalMethod = TreeDialog.showTraversalDialog(); // Hiển thị dialog chọn phương pháp traverse
+            if (traversalMethod != null) {
+                updatePseudoCode(traversalMethod); // Hiển thị mã giả của phương pháp traverse
+                traverseTree(traversalMethod); // Bắt đầu quá trình traverse
             }
+        } else {
+            updateTreeVisualizer("Please select a tree type first.");
         }
     }
 
@@ -191,11 +202,13 @@ public class TreeVisualizerController {
     }
 
     private void traverseTree(String method) {
-        List<Node> nodes = currentTree.traverse(method);
-        new Thread(() -> {
-            int pseudoStep = 0;
-            for (int i = 0; i < nodes.size(); i++) {
-                Node node = nodes.get(i);
+        traverseNodes = currentTree.traverse(method);
+        pseudoSteps = new ArrayList<>();
+        currentStep = 0;
+
+        traverseThread = new Thread(() -> {
+            for (int i = 0; i < traverseNodes.size(); i++) {
+                Node node = traverseNodes.get(i);
                 for (int j = 0; j < getPseudoCodeLines(method).length; j++) {
                     final int step = j;
                     Platform.runLater(() -> {
@@ -204,15 +217,21 @@ public class TreeVisualizerController {
                             highlightNode(node);
                         }
                     });
+                    pseudoSteps.add(step);
                     try {
                         Thread.sleep((long) (1000 / sliderSpeed.getValue())); // Điều chỉnh tốc độ dựa trên sliderSpeed
+                        synchronized (traverseThread) {
+                            while (isPaused) {
+                                traverseThread.wait();
+                            }
+                        }
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
                 }
-                pseudoStep++;
             }
-        }).start();
+        });
+        traverseThread.start();
     }
 
     private boolean isVisitLine(String method, int step) {
@@ -283,10 +302,10 @@ public class TreeVisualizerController {
     void btnSearchPressed(ActionEvent event) {
         if (currentTree != null) {
             int value = TreeDialog.showSearchDialog(); // Hiển thị dialog nhập giá trị node muốn tìm
-            String method = TreeDialog.showTraversalDialog(); // Hiển thị dialog chọn phương pháp tìm kiếm
-            if (value != -1 && method != null) {
-                updatePseudoCode(method); // Hiển thị mã giả của phương pháp tìm kiếm
-                searchTree(value, method); // Bắt đầu quá trình tìm kiếm
+            traversalMethod = TreeDialog.showTraversalDialog(); // Hiển thị dialog chọn phương pháp tìm kiếm
+            if (value != -1 && traversalMethod != null) {
+                updatePseudoCode(traversalMethod); // Hiển thị mã giả của phương pháp tìm kiếm
+                searchTree(value, traversalMethod); // Bắt đầu quá trình tìm kiếm
             }
         } else {
             updateTreeVisualizer("Please select a tree type first.");
@@ -294,12 +313,15 @@ public class TreeVisualizerController {
     }
 
     private void searchTree(int value, String method) {
-        List<Node> nodes = currentTree.traverse(method);
-        new Thread(() -> {
+        traverseNodes = currentTree.traverse(method);
+        pseudoSteps = new ArrayList<>();
+        currentStep = 0;
+
+        traverseThread = new Thread(() -> {
             boolean[] found = { false };
             Node[] foundNode = { null };
-            for (int i = 0; i < nodes.size(); i++) {
-                Node node = nodes.get(i);
+            for (int i = 0; i < traverseNodes.size(); i++) {
+                Node node = traverseNodes.get(i);
                 for (int j = 0; j < getPseudoCodeLines(method).length; j++) {
                     final int step = j;
                     Platform.runLater(() -> {
@@ -312,8 +334,14 @@ public class TreeVisualizerController {
                             }
                         }
                     });
+                    pseudoSteps.add(step);
                     try {
                         Thread.sleep((long) (1000 / sliderSpeed.getValue())); // Điều chỉnh tốc độ dựa trên sliderSpeed
+                        synchronized (traverseThread) {
+                            while (isPaused) {
+                                traverseThread.wait();
+                            }
+                        }
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
@@ -334,7 +362,8 @@ public class TreeVisualizerController {
                     highlightNode(finalFoundNode); // Giữ highlight trên node được tìm thấy
                 });
             }
-        }).start();
+        });
+        traverseThread.start();
     }
 
     // Het thao tac tren cay
@@ -369,24 +398,52 @@ public class TreeVisualizerController {
 
     @FXML
     void stepBackward(ActionEvent event) {
-        updateTreeVisualizer("Step Backward functionality is under development.");
+        if (isPaused && currentStep > 0) {
+            currentStep--;
+            updateNodeHighlight();
+            clearPseudoCodeHighlight();
+        }
     }
 
     @FXML
     void btnPlayPressed(ActionEvent event) {
-        updateTreeVisualizer("Play functionality is under development.");
+        isPaused = false;
+        synchronized (traverseThread) {
+            traverseThread.notify();
+        }
     }
 
     @FXML
     void btnPausePressed(ActionEvent event) {
-        updateTreeVisualizer("Pause functionality is under development.");
+        isPaused = true;
     }
 
     @FXML
     void stepForward(ActionEvent event) {
-        updateTreeVisualizer("Step Forward functionality is under development.");
+        if (isPaused && currentStep < traverseNodes.size() - 1) {
+            currentStep++;
+            updateNodeHighlight();
+            clearPseudoCodeHighlight();
+        }
     }
+
+    private void updateNodeHighlight() {
+        Node currentNode = traverseNodes.get(currentStep);
+        highlightNode(currentNode);
+    }
+
+    private void clearPseudoCodeHighlight() {
+        pseudoCode.getChildren().clear();
+    }
+
     // het bottom bar
+
+    private void updateVisualization() {
+        Node currentNode = traverseNodes.get(currentStep);
+        int pseudoStep = pseudoSteps.get(currentStep);
+        highlightNode(currentNode);
+        highlightPseudoCodeLine(traversalMethod, pseudoStep);
+    }
 
     private void updateTreeVisualizer(String message) {
         // Xóa tất cả các phần tử cũ
