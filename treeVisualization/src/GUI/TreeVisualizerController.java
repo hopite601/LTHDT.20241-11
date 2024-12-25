@@ -441,24 +441,4 @@ public class TreeVisualizerController {
         }
     }
 
-    private void searchAndHighlight(Node node, int value) {
-        if (node == null) {
-            updateTreeVisualizer("Node with value " + value + " not found.");
-            return;
-        }
-
-        // Highlight the current node
-        treeVisualizer.getChildren().clear();
-        drawTree(currentTree.getRoot(), 300, 50, 100);
-        if (node.getValue() == value) {
-            Circle highlight = new Circle(300, 50, 20);
-            highlight.setStyle("-fx-fill: yellow;");
-            treeVisualizer.getChildren().add(highlight);
-            updateTreeVisualizer("Node with value " + value + " found.");
-            return;
-        }
-        for (Node child : node.getChildren()) {
-            searchAndHighlight(child, value);
-        }
-    }
 }
