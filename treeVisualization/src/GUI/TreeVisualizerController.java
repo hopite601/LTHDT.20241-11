@@ -112,14 +112,30 @@ public class TreeVisualizerController {
             int[] values = TreeDialog.showInsertDialog(); // hien thi dialog insert
             if (values[0] != -1 && values[1] != -1) {
                 Node parent = currentTree.findNodeByValue(currentTree.getRoot(), values[0]);
-
-                // kiem tra xem them node dc co dc ko
-                if (currentTree.insertNode(parent, values[1])) {
-                    updateTreeVisualizer("Parent: " + values[0] + " and child: " + values[1] + " are inserted.");
-                    updateInsertPseudoCode(values[0], values[1]); // Hiển thị pseudo code cho hành động Insert
-                } else {
-                    updateTreeVisualizer("Node already exists with value: " + values[1]);
-                }
+                updateInsertPseudoCode(values[0], values[1]); // Hiển thị pseudo code cho hành động Insert
+                new Thread(() -> {
+                    String[] codeLines = getInsertPseudoCodeLines(values[0], values[1]);
+                    for (int i = 0; i < codeLines.length; i++) {
+                        final int step = i;
+                        Platform.runLater(() -> highlightPseudoCodeLine(codeLines, step));
+                        try {
+                            Thread.sleep((long) (1000 / sliderSpeed.getValue())); // Điều chỉnh tốc độ dựa trên
+                                                                                  // sliderSpeed
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                        if (step == 5) { // Dòng lệnh chèn node vào tree
+                            Platform.runLater(() -> {
+                                if (currentTree.insertNode(parent, values[1])) {
+                                    updateTreeVisualizer(
+                                            "Parent: " + values[0] + " and child: " + values[1] + " are inserted.");
+                                } else {
+                                    updateTreeVisualizer("Node already exists with value: " + values[1]);
+                                }
+                            });
+                        }
+                    }
+                }).start();
             } else {
                 updateTreeVisualizer("Invalid input or insertion canceled.");
             }
@@ -132,9 +148,35 @@ public class TreeVisualizerController {
     void btnDeletePressed(ActionEvent event) {
         if (currentTree != null) {
             int value = TreeDialog.showDeleteDialog();
-            currentTree.deleteNode(value);
-            updateTreeVisualizer("Node with value " + value + " deleted.");
             updateDeletePseudoCode(value); // Hiển thị pseudo code cho hành động Delete
+            new Thread(() -> {
+                String[] codeLines = getDeletePseudoCodeLines(value);
+                boolean[] nodeFound = { false };
+                for (int i = 0; i < codeLines.length; i++) {
+                    final int step = i;
+                    Platform.runLater(() -> highlightPseudoCodeLine(codeLines, step));
+                    try {
+                        Thread.sleep((long) (1000 / sliderSpeed.getValue())); // Điều chỉnh tốc độ dựa trên sliderSpeed
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    if (step == 3) { // Dòng lệnh xoá node khỏi tree
+                        Platform.runLater(() -> {
+                            Node nodeToDelete = currentTree.search(value);
+                            if (nodeToDelete != null) {
+                                currentTree.deleteNode(value);
+                                updateTreeVisualizer("Node with value " + value + " deleted.");
+                                nodeFound[0] = true;
+                            } else {
+                                updateTreeVisualizer("Node with value " + value + " not found.");
+                            }
+                        });
+                    }
+                }
+                if (!nodeFound[0]) {
+                    Platform.runLater(() -> updateTreeVisualizer("Node with value " + value + " not found."));
+                }
+            }).start();
         } else {
             updateTreeVisualizer("Please select a tree type first.");
         }
@@ -145,12 +187,29 @@ public class TreeVisualizerController {
         if (currentTree != null) {
             int[] values = TreeDialog.showUpdateDialog();
             if (values[0] != -1 && values[1] != -1) {
-                if (currentTree.updateNode(values[0], values[1])) {
-                    updateTreeVisualizer("Node updated from " + values[0] + " to " + values[1]);
-                    updateUpdatePseudoCode(values[0], values[1]); // Hiển thị pseudo code cho hành động Update
-                } else {
-                    updateTreeVisualizer("Old value not exists OR new value already exists");
-                }
+                updateUpdatePseudoCode(values[0], values[1]); // Hiển thị pseudo code cho hành động Update
+                new Thread(() -> {
+                    String[] codeLines = getUpdatePseudoCodeLines(values[0], values[1]);
+                    for (int i = 0; i < codeLines.length; i++) {
+                        final int step = i;
+                        Platform.runLater(() -> highlightPseudoCodeLine(codeLines, step));
+                        try {
+                            Thread.sleep((long) (1000 / sliderSpeed.getValue())); // Điều chỉnh tốc độ dựa trên
+                                                                                  // sliderSpeed
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                        if (step == 4) { // Dòng lệnh cập nhật giá trị node
+                            Platform.runLater(() -> {
+                                if (currentTree.updateNode(values[0], values[1])) {
+                                    updateTreeVisualizer("Node updated from " + values[0] + " to " + values[1]);
+                                } else {
+                                    updateTreeVisualizer("Old value not exists OR new value already exists");
+                                }
+                            });
+                        }
+                    }
+                }).start();
             } else {
                 updateTreeVisualizer("Invalid input or update canceled.");
             }
@@ -159,11 +218,51 @@ public class TreeVisualizerController {
         }
     }
 
+    private String[] getInsertPseudoCodeLines(int parentValue, int childValue) {
+        return new String[] {
+                "Insert(" + parentValue + ", " + childValue + "):",
+                "  parent = findNodeByValue(root, " + parentValue + ")",
+                "  if parent is not null:",
+                "    if child does not exist:",
+                "      create new node with value " + childValue,
+                "      add child to parent",
+                "    else:",
+                "      print 'Node already exists with value: " + childValue + "'",
+                "  else:",
+                "    print 'Parent node not found'"
+        };
+    }
+
+    private String[] getDeletePseudoCodeLines(int value) {
+        return new String[] {
+                "Delete(" + value + "):",
+                "  node = findNodeByValue(root, " + value + ")",
+                "  if node is not null:",
+                "    remove node from tree",
+                "  else:",
+                "    print 'Node with value " + value + " not found'"
+        };
+    }
+
+    private String[] getUpdatePseudoCodeLines(int oldValue, int newValue) {
+        return new String[] {
+                "Update(" + oldValue + ", " + newValue + "):",
+                "  node = findNodeByValue(root, " + oldValue + ")",
+                "  if node is not null:",
+                "    if " + newValue + " does not exist:",
+                "      update node value to " + newValue,
+                "    else:",
+                "      print 'Node with value " + newValue + " already exists'",
+                "  else:",
+                "    print 'Node with value " + oldValue + " not found'"
+        };
+    }
+
     private void updateInsertPseudoCode(int parentValue, int childValue) {
         pseudoCode.getChildren().clear();
         VBox vbox = new VBox();
         String[] codeLines = new String[] {
-                "Insert(parent, child):",
+                "Insert(" + parentValue + ", " + childValue + "):",
                 "  parent = findNodeByValue(root, " + parentValue + ")",
                 "  if parent is not null:",
                 "    if child does not exist:",
@@ -185,7 +284,7 @@ public class TreeVisualizerController {
         pseudoCode.getChildren().clear();
         VBox vbox = new VBox();
         String[] codeLines = new String[] {
-                "Delete(value):",
+                "Delete(" + value + "):",
                 "  node = findNodeByValue(root, " + value + ")",
                 "  if node is not null:",
                 "    remove node from tree",
@@ -203,10 +302,10 @@ public class TreeVisualizerController {
         pseudoCode.getChildren().clear();
         VBox vbox = new VBox();
         String[] codeLines = new String[] {
-                "Update(oldValue, newValue):",
+                "Update(" + oldValue + ", " + newValue + "):",
                 "  node = findNodeByValue(root, " + oldValue + ")",
                 "  if node is not null:",
-                "    if newValue does not exist:",
+                "    if " + newValue + " does not exist:",
                 "      update node value to " + newValue,
                 "    else:",
                 "      print 'Node with value " + newValue + " already exists'",
@@ -276,7 +375,7 @@ public class TreeVisualizerController {
                 for (int j = 0; j < getPseudoCodeLines(method).length; j++) {
                     final int step = j;
                     Platform.runLater(() -> {
-                        highlightPseudoCodeLine(method, step);
+                        highlightPseudoCodeLine(getPseudoCodeLines(method), step);
                         if (isVisitLine(method, step)) {
                             highlightNode(node);
                         }
@@ -348,10 +447,9 @@ public class TreeVisualizerController {
         return nodePositionY.getOrDefault(node, 0.0);
     }
 
-    private void highlightPseudoCodeLine(String method, int step) {
+    private void highlightPseudoCodeLine(String[] codeLines, int step) {
         pseudoCode.getChildren().clear();
         VBox vbox = new VBox();
-        String[] codeLines = getPseudoCodeLines(method);
         for (int i = 0; i < codeLines.length; i++) {
             Text text = new Text(codeLines[i]);
             if (i == step) {
@@ -389,7 +487,7 @@ public class TreeVisualizerController {
                 for (int j = 0; j < getPseudoCodeLines(method).length; j++) {
                     final int step = j;
                     Platform.runLater(() -> {
-                        highlightPseudoCodeLine(method, step);
+                        highlightPseudoCodeLine(getPseudoCodeLines(method), step);
                         if (isVisitLine(method, step)) {
                             highlightNode(node);
                             if (node.getValue() == value) {
@@ -506,7 +604,7 @@ public class TreeVisualizerController {
         Node currentNode = traverseNodes.get(currentStep);
         int pseudoStep = pseudoSteps.get(currentStep);
         highlightNode(currentNode);
-        highlightPseudoCodeLine(traversalMethod, pseudoStep);
+        highlightPseudoCodeLine(getPseudoCodeLines(traversalMethod), pseudoStep);
     }
 
     private void updateTreeVisualizer(String message) {
